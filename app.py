@@ -91,6 +91,9 @@ def register():
 def home():
     return render_template("home.html")
 
+@app.route("/")
+def index():
+    return redirect("/login")
 
 # ------------------ USERS ------------------
 @app.route("/users")
