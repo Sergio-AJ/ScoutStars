@@ -1,0 +1,25 @@
+<h2>Temporada: {{ temporada.nombre }}</h2>
+<h3>Liga: {{ temporada.liga.nombre }}</h3>
+
+<a href="/temporadas">← Volver a temporadas</a>
+<br><br>
+
+<!-- Botón para crear equipo en esta temporada -->
+<a href="/temporadas/{{ temporada.id }}/crear_equipo">
+    Crear equipo en esta temporada
+</a>
+
+<br><br>
+
+<h3>Equipos de esta temporada:</h3>
+<ul>
+    {% for equipo in equipos %}
+        <li>
+            {{ equipo.nombre }}
+            <!-- Link a los jugadores de cada equipo -->
+            <a href="/equipos/{{ equipo.id }}/jugadores">Ver jugadores</a>
+        </li>
+    {% else %}
+        <li>No hay equipos en esta temporada todavía.</li>
+    {% endfor %}
+</ul>

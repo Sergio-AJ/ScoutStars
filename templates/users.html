@@ -1,0 +1,43 @@
+<h2>Usuarios</h2>
+
+<!-- 🔐 SOLO ADMIN -->
+{% if current_user.role == "admin" %}
+<a href="/register">Nuevo usuario</a> | 
+{% endif %}
+
+<!-- 🔐 ENTRENADOR Y ADMIN -->
+{% if current_user.role in ["entrenador", "admin"] %}
+<a href="/equipos/crear">Nuevo equipo</a> |
+<a href="/ligas/crear">Crear liga</a> |
+<a href="/temporadas/crear">Crear temporada</a> |
+{% endif %}
+
+<a href="/ligas">Ver ligas</a> |
+<a href="/jugadores">Jugadores</a> |
+<a href="/comparador">Comparador</a> |
+<a href="/logout">Cerrar sesión</a>
+
+<table border="1">
+    <tr>
+        <th>ID</th><th>Usuario</th><th>Rol</th><th>Acciones</th>
+    </tr>
+
+    {% for u in users %}
+    <tr>
+        <td>{{ u.id }}</td>
+        <td>{{ u.username }}</td>
+        <td>{{ u.role }}</td>
+        <td>
+
+            <!-- 🔐 SOLO ADMIN -->
+            {% if current_user.role == "admin" %}
+                <a href="/edit/{{ u.id }}">Editar</a> |
+                <a href="/delete/{{ u.id }}">Borrar</a>
+            {% else %}
+                Sin permisos
+            {% endif %}
+
+        </td>
+    </tr>
+    {% endfor %}
+</table>

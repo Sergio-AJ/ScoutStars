@@ -1,0 +1,18 @@
+<h2>Editar Jugador</h2>
+<form method="post">
+    Nombre: <input name="nombre" value="{{ jugador.nombre }}" required><br>
+    Apellido: <input name="apellido" value="{{ jugador.apellido }}" required><br>
+    Número: <input type="number" name="numero" value="{{ jugador.numero }}" required><br>
+    Posición: <input name="posicion" value="{{ jugador.posicion }}"><br>
+    Edad: <input type="number" name="edad" value="{{ jugador.edad }}"><br>
+    Equipo:
+    <select name="equipo_id" required>
+        {% for equipo in equipos %}
+        <option value="{{ equipo.id }}" {% if equipo.id == jugador.equipo_id %}selected{% endif %}>
+            {{ equipo.nombre }}
+        </option>
+        {% endfor %}
+    </select><br>
+    <button>Guardar</button>
+</form>
+<a href="/jugadores">Volver al listado</a>

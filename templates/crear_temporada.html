@@ -1,0 +1,21 @@
+<h2>Crear Temporada</h2>
+
+<form method="post">
+
+    Nombre de la temporada:
+    <input type="text" name="nombre" placeholder="Ej: 2025/2026" required>
+    <br><br>
+
+    Liga:
+    <select name="liga_id" required>
+        {% for liga in ligas %}
+            <option value="{{ liga.id }}">{{ liga.nombre }}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+
+    <button type="submit">Crear Temporada</button>
+</form>
+
+<br>
+<a href="/temporadas">Volver</a>

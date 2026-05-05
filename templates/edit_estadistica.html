@@ -1,0 +1,16 @@
+<h2>Editar Estadísticas</h2>
+
+<form method="POST">
+
+    <p>{{ stat.jugador.nombre }} {{ stat.jugador.apellido }}</p>
+    <p>Temporada: {{ stat.temporada.nombre }}</p>
+
+    Partidos: <input type="number" name="partidos" value="{{ stat.partidos }}"><br>
+    Puntos: <input type="number" name="puntos" value="{{ stat.puntos }}"><br>
+    Rebotes: <input type="number" name="rebotes" value="{{ stat.rebotes }}"><br>
+    Asistencias: <input type="number" name="asistencias" value="{{ stat.asistencias }}"><br>
+
+    <button>Guardar</button>
+</form>
+
+<a href="/equipos/{{ stat.jugador.equipo_id }}/jugadores">Volver</a>

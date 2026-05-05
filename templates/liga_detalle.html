@@ -1,0 +1,28 @@
+<h2>{{ liga.nombre }} - Equipos</h2>
+
+<a href="/ligas">Volver a ligas</a> | 
+<a href="/ligas/{{ liga.id }}/crear_equipo">Crear nuevo equipo</a> | 
+<a href="/users">Usuarios</a> | 
+<a href="/logout">Cerrar sesión</a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Jugadores</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for equipo in equipos %}
+    <tr>
+        <td>{{ equipo.id }}</td>
+        <td>{{ equipo.nombre }}</td>
+        <td>{{ equipo.jugadores|length }}</td>
+        <td>
+            <a href="/equipos/edit/{{ equipo.id }}">Editar equipo</a> |
+            <a href="/equipos/delete/{{ equipo.id }}">Borrar equipo</a> |
+            <a href="/equipos/{{ equipo.id }}/jugadores">Ver jugadores</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>

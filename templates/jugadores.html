@@ -1,0 +1,81 @@
+<h2>Jugadores</h2>
+
+<!-- 🔽 FILTROS -->
+<form method="GET">
+    <label>Equipo:</label>
+    <select name="equipo_id">
+        <option value="">Todos</option>
+        {% for e in equipos %}
+            <option value="{{ e.id }}">{{ e.nombre }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Posición:</label>
+    <select name="posicion">
+        <option value="">Todas</option>
+        <option value="Base">Base</option>
+        <option value="Escolta">Escolta</option>
+        <option value="Alero">Alero</option>
+        <option value="Ala-Pivot">Ala-Pivot</option>
+        <option value="Pivot">Pivot</option>
+    </select>
+
+    <label>Ordenar:</label>
+    <select name="ordenar">
+        <option value="">--</option>
+        <option value="puntos">Puntos</option>
+        <option value="rebotes">Rebotes</option>
+        <option value="asistencias">Asistencias</option>
+    </select>
+
+    <button type="submit">Aplicar</button>
+</form>
+
+<br>
+
+<!-- 🔐 SOLO ENTRENADOR Y ADMIN -->
+{% if current_user.role in ["entrenador", "admin"] %}
+<a href="/jugadores/crear">Crear nuevo jugador</a> | 
+{% endif %}
+
+<!-- 🔐 SOLO ADMIN -->
+{% if current_user.role == "admin" %}
+<a href="/users">Usuarios</a> | 
+{% endif %}
+
+<a href="/logout">Cerrar sesión</a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Número</th>
+        <th>Posición</th>
+        <th>Edad</th>
+        <th>Equipo</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for jugador in jugadores %}
+    <tr>
+        <td>{{ jugador.id }}</td>
+        <td>{{ jugador.nombre }}</td>
+        <td>{{ jugador.apellido }}</td>
+        <td>{{ jugador.numero }}</td>
+        <td>{{ jugador.posicion }}</td>
+        <td>{{ jugador.edad }}</td>
+        <td>{{ jugador.equipo.nombre }}</td>
+
+        <td>
+            {% if current_user.role in ["entrenador", "admin"] %}
+                <a href="/jugadores/edit/{{ jugador.id }}">Editar</a> |
+                <a href="/jugadores/delete/{{ jugador.id }}">Borrar</a> |
+                <a href="/estadisticas/crear/{{ jugador.id }}">Añadir estadísticas</a>
+            {% else %}
+                Ver datos
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>

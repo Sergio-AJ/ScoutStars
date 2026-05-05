@@ -1,0 +1,12 @@
+<h2>Editar usuario</h2>
+<form method="post">
+    Usuario: <input name="username" value="{{ user.username }}" required><br>
+    Rol: 
+    <select name="role">
+        <option value="admin" {% if user.role=='admin' %}selected{% endif %}>admin</option>
+        <option value="entrenador" {% if user.role=='entrenador' %}selected{% endif %}>entrenador</option>
+        <option value="jugador" {% if user.role=='jugador' %}selected{% endif %}>jugador</option>
+    </select><br>
+    <button>Guardar</button>
+</form>
+<a href="/users">Volver al listado</a>

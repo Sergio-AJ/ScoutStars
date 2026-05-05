@@ -1,0 +1,16 @@
+<h2>Temporadas</h2>
+
+<a href="/temporadas/crear">Crear nueva temporada</a>
+
+<ul>
+    {% for t in temporadas %}
+        <li>
+            <a href="/temporadas/{{ t.id }}">
+                {{ t.nombre }} - {{ t.liga.nombre }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+<br>
+<a href="/ligas">Volver a ligas</a>

@@ -1,0 +1,71 @@
+<h2>Jugadores de {{ equipo.nombre }}</h2>
+
+<a href="/ligas/{{ equipo.liga_id }}">Volver a la liga</a> |
+
+<!-- 🔐 SOLO ENTRENADOR Y ADMIN -->
+{% if current_user.role in ["entrenador", "admin"] %}
+<a href="/jugadores/crear">Crear nuevo jugador</a> |
+{% endif %}
+
+<a href="/logout">Cerrar sesión</a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+
+<tr>
+<th>ID</th>
+<th>Nombre</th>
+<th>Apellido</th>
+<th>Número</th>
+<th>Posición</th>
+<th>Edad</th>
+<th>Stats (Basket)</th>
+<th>Acciones</th>
+</tr>
+
+{% for jugador in jugadores %}
+<tr>
+<td>{{ jugador.id }}</td>
+<td>{{ jugador.nombre }}</td>
+<td>{{ jugador.apellido }}</td>
+<td>{{ jugador.numero }}</td>
+<td>{{ jugador.posicion }}</td>
+<td>{{ jugador.edad }}</td>
+
+<td>
+    {% if jugador.estadisticas %}
+        <ul>
+        {% for e in jugador.estadisticas %}
+            <li>
+                <strong>{{ e.temporada.nombre }}</strong><br>
+                {{ e.puntos }} PTS |
+                {{ e.rebotes }} REB |
+                {{ e.asistencias }} AST |
+                {{ e.partidos }} PJ<br>
+
+                <!-- 🔐 SOLO ENTRENADOR Y ADMIN -->
+                {% if current_user.role in ["entrenador", "admin"] %}
+                    <a href="/estadisticas/edit/{{ e.id }}">Editar</a>
+                    <a href="/estadisticas/delete/{{ e.id }}" onclick="return confirm('¿Seguro que quieres borrar esta estadística?')">Borrar</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        Sin estadísticas
+    {% endif %}
+</td>
+
+<td>
+    {% if current_user.role in ["entrenador", "admin"] %}
+        <a href="/jugadores/edit/{{ jugador.id }}">Editar</a> |
+        <a href="/jugadores/delete/{{ jugador.id }}">Borrar</a> |
+        <a href="/estadisticas/crear/{{ jugador.id }}">Añadir stats</a>
+    {% else %}
+        Ver datos
+    {% endif %}
+</td>
+
+</tr>
+{% endfor %}
+
+</table>

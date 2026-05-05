@@ -1,0 +1,31 @@
+<h2>Ligas</h2>
+
+<a href="/ligas/crear">Crear nueva liga</a> | 
+<a href="/users">Usuarios</a> | 
+<a href="/logout">Cerrar sesión</a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Ciudad</th>
+        <th>Categoría</th>
+        <th>Equipos</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for liga in ligas %}
+    <tr>
+        <td>{{ liga.id }}</td>
+        <td>{{ liga.nombre }}</td>
+        <td>{{ liga.ciudad }}</td>
+        <td>{{ liga.categoria }}</td>
+        <td>{{ liga.equipos|length }}</td>
+        <td>
+            <a href="/ligas/{{ liga.id }}">Ver liga</a>
+            <a href="/ligas/delete/{{ liga.id }}">Borrar liga</a>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>

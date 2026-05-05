@@ -1,0 +1,45 @@
+<h1 style="text-align:center;">ScoutStars</h1>
+
+<!-- 🔝 NAVBAR -->
+<div style="display:flex; justify-content:flex-end; gap:10px; margin-bottom:20px;">
+    
+    {% if current_user.is_authenticated %}
+        <span>Hola, {{ current_user.username }}</span>
+        <a href="/logout">Cerrar sesión</a>
+    {% else %}
+        <a href="/login">Login</a>
+        <a href="/register">Registro</a>
+    {% endif %}
+
+</div>
+
+<hr>
+
+<!-- 🎯 OPCIONES CENTRALES -->
+<div style="text-align:center; margin-top:50px;">
+
+    <h2>Panel principal</h2>
+
+    <div style="display:flex; flex-direction:column; gap:15px; align-items:center;">
+
+        <!-- VISIBLES PARA TODOS -->
+        <a href="/temporadas">Ver temporadas</a>
+        <a href="/ligas">Ver ligas</a>
+        <a href="/jugadores">Ver jugadores</a>
+        <a href="/comparador">Comparador de estadísticas</a>
+
+        <!-- CREACIÓN (solo entrenador/admin) -->
+        {% if current_user.role in ["entrenador", "admin"] %}
+            <a href="/ligas/crear">Crear liga</a>
+            <a href="/equipos/crear">Crear equipo</a>
+            <a href="/jugadores/crear">Crear jugador</a>
+        {% endif %}
+
+        <!-- SOLO ADMIN -->
+        {% if current_user.role == "admin" %}
+            <a href="/users">Gestionar usuarios</a>
+        {% endif %}
+
+    </div>
+
+</div>

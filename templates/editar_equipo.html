@@ -1,0 +1,20 @@
+<h2>Editar equipo</h2>
+
+<form method="post">
+
+    Nombre: <input name="nombre" value="{{ equipo.nombre }}" required><br>
+
+    Liga:
+    <select name="liga_id">
+        {% for liga in ligas %}
+        <option value="{{ liga.id }}" {% if equipo.liga_id == liga.id %}selected{% endif %}>
+            {{ liga.nombre }}
+        </option>
+        {% endfor %}
+    </select><br>
+
+    <button>Guardar</button>
+
+</form>
+
+<a href="/ligas">Volver al listado</a>
