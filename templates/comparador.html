@@ -3,47 +3,46 @@
 <a href="/home">Inicio</a>
 <a href="/home">Volver</a>
 
-<form method="POST">
+<!-- 🔽 FILTROS (GET) -->
+<form method="GET">
 
-    <!-- 🔽 FILTRO LIGA -->
     <label>Liga:</label>
     <select name="liga_id" onchange="this.form.submit()">
-        <option value="">Seleccionar liga</option>
+        <option value="">Todas</option>
         {% for l in ligas %}
             <option value="{{ l.id }}">{{ l.nombre }}</option>
         {% endfor %}
     </select>
 
-    <!-- 🔽 FILTRO EQUIPO -->
     <label>Equipo:</label>
     <select name="equipo_id" onchange="this.form.submit()">
-        <option value="">Seleccionar equipo</option>
+        <option value="">Todos</option>
         {% for e in equipos %}
             <option value="{{ e.id }}">{{ e.nombre }}</option>
         {% endfor %}
     </select>
 
-    <br><br>
+</form>
 
-    <!-- 🔽 JUGADORES -->
+<br>
+
+<!-- 🔽 COMPARACIÓN (POST) -->
+<form method="POST">
+
     <label>Jugador 1:</label>
     <select name="jugador1">
         {% for j in jugadores %}
-            <option value="{{ j.id }}">
-                {{ j.nombre }} {{ j.apellido }}
-            </option>
+            <option value="{{ j.id }}">{{ j.nombre }} {{ j.apellido }}</option>
         {% endfor %}
     </select>
 
     <label>Jugador 2:</label>
     <select name="jugador2">
         {% for j in jugadores %}
-            <option value="{{ j.id }}">
-                {{ j.nombre }} {{ j.apellido }}
-            </option>
+            <option value="{{ j.id }}">{{ j.nombre }} {{ j.apellido }}</option>
         {% endfor %}
     </select>
 
     <button type="submit">Comparar</button>
-    <option value="">Todos los jugadores</option>
+
 </form>

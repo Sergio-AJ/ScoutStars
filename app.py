@@ -355,20 +355,17 @@ def comparador():
 
     ligas = Liga.query.all()
 
-    # filtros
-    liga_id = request.form.get("liga_id")
-    equipo_id = request.form.get("equipo_id")
+    # 🔽 FILTROS (GET)
+    liga_id = request.args.get("liga_id")
+    equipo_id = request.args.get("equipo_id")
 
     equipos = Equipo.query.all()
 
-    # 👇 base: todos los jugadores
     jugadores_query = Jugador.query
 
-    # filtro por equipo
     if equipo_id:
         jugadores_query = jugadores_query.filter_by(equipo_id=equipo_id)
 
-    # filtro por liga (a través de equipo)
     if liga_id:
         equipos_liga = Equipo.query.filter_by(liga_id=liga_id).all()
         equipos_ids = [e.id for e in equipos_liga]
@@ -379,10 +376,14 @@ def comparador():
     jugador1 = None
     jugador2 = None
 
-    if request.method == "POST" and request.form.get("jugador1"):
+    # 🔽 COMPARACIÓN (POST REAL)
+    if request.method == "POST":
+        jugador1_id = request.form.get("jugador1")
+        jugador2_id = request.form.get("jugador2")
 
-        jugador1 = Jugador.query.get(int(request.form["jugador1"]))
-        jugador2 = Jugador.query.get(int(request.form["jugador2"]))
+        if jugador1_id and jugador2_id:
+            jugador1 = Jugador.query.get(int(jugador1_id))
+            jugador2 = Jugador.query.get(int(jugador2_id))
 
     return render_template(
         "comparador.html",
