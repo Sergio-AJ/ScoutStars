@@ -399,12 +399,14 @@ def comparador():
 def crear_equipo_liga(liga_id):
 
     liga = Liga.query.get_or_404(liga_id)
+    temporadas = Temporada.query.filter_by(liga_id=liga_id).all()  # 🔥 CLAVE
 
     if request.method == "POST":
 
         equipo = Equipo(
             nombre=request.form["nombre"],
-            liga_id=liga.id
+            liga_id=liga.id,
+            temporada_id=int(request.form["temporada_id"])  # 🔥 ya no será None
         )
 
         db.session.add(equipo)
@@ -412,7 +414,11 @@ def crear_equipo_liga(liga_id):
 
         return redirect(f"/ligas/{liga.id}")
 
-    return render_template("crear_equipo.html", liga=liga)
+    return render_template(
+        "crear_equipo.html",
+        liga=liga,
+        temporadas=temporadas   # 🔥 CLAVE
+    )
 
 # ---------------- EQUIPOS --------------
 @app.route("/equipos/crear", methods=["GET", "POST"])
