@@ -425,6 +425,7 @@ def crear_equipo():
         equipo = Equipo(
             nombre=request.form["nombre"],
             liga_id=int(request.form["liga_id"])
+            temporada_id = int(request.form["temporada_id"])
         )
 
         db.session.add(equipo)

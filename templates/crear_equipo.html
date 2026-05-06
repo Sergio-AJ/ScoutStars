@@ -20,7 +20,7 @@
 
     {% if temporadas %}
         Temporada:
-        <select name="temporada_id">
+        <select name="temporada_id" required>
             {% for t in temporadas %}
                 <option value="{{ t.id }}">{{ t.nombre }}</option>
             {% endfor %}
