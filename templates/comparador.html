@@ -46,3 +46,38 @@
     <button type="submit">Comparar</button>
 
 </form>
+
+{% if jugador1 and jugador2 %}
+
+<h3>Comparación</h3>
+
+<p><strong>{{ jugador1.nombre }} {{ jugador1.apellido }}</strong> vs 
+<strong>{{ jugador2.nombre }} {{ jugador2.apellido }}</strong></p>
+
+<table border="1">
+    <tr>
+        <th>Estadística</th>
+        <th>{{ jugador1.nombre }}</th>
+        <th>{{ jugador2.nombre }}</th>
+    </tr>
+
+    <tr>
+        <td>Puntos</td>
+        <td>{{ jugador1.estadisticas | sum(attribute='puntos') }}</td>
+        <td>{{ jugador2.estadisticas | sum(attribute='puntos') }}</td>
+    </tr>
+
+    <tr>
+        <td>Rebotes</td>
+        <td>{{ jugador1.estadisticas | sum(attribute='rebotes') }}</td>
+        <td>{{ jugador2.estadisticas | sum(attribute='rebotes') }}</td>
+    </tr>
+
+    <tr>
+        <td>Asistencias</td>
+        <td>{{ jugador1.estadisticas | sum(attribute='asistencias') }}</td>
+        <td>{{ jugador2.estadisticas | sum(attribute='asistencias') }}</td>
+    </tr>
+</table>
+
+{% endif %}
