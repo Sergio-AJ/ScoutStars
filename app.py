@@ -4,6 +4,7 @@ from extensions import db, login_manager
 from models import User, Liga, Equipo, Jugador, Temporada, Estadistica
 from functools import wraps
 from flask import abort
+import os
 
 print("🔥 APP PY CARGADO CORRECTAMENTE")
 
@@ -32,7 +33,7 @@ app.secret_key = "clave_secreta"
 def test2():
     return "TEST 2 OK"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
