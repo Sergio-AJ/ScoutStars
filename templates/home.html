@@ -52,7 +52,155 @@
             <a href="/users">Gestionar usuarios</a>
         {% endif %}
 
+    </div><!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ScoutStars</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container py-4">
+
+    <!-- TÍTULO -->
+    <h1 class="text-center mb-4">ScoutStars</h1>
+
+    <!-- 🔝 NAVBAR -->
+    <div class="d-flex justify-content-end gap-3 mb-4">
+
+        {% if current_user.is_authenticated %}
+            <span class="fw-bold">Hola, {{ current_user.username }}</span>
+            <a href="/logout" class="btn btn-outline-danger btn-sm">
+                Cerrar sesión
+            </a>
+        {% else %}
+            <a href="/login" class="btn btn-outline-primary btn-sm">
+                Login
+            </a>
+
+            <a href="/register" class="btn btn-primary btn-sm">
+                Registro
+            </a>
+        {% endif %}
+
     </div>
+
+    <hr>
+
+    <!-- 🎯 OPCIONES CENTRALES -->
+    <div class="text-center mt-5">
+
+        <h2 class="mb-5">Panel principal</h2>
+
+        <div class="row g-4 justify-content-center">
+
+            <!-- VISIBLES PARA TODOS -->
+
+            <div class="col-md-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <a href="/temporadas" class="btn btn-outline-dark w-100">
+                            Ver temporadas
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <a href="/ligas" class="btn btn-outline-dark w-100">
+                            Ver ligas
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <a href="/jugadores" class="btn btn-outline-dark w-100">
+                            Ver jugadores
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <a href="/comparador" class="btn btn-outline-dark w-100">
+                            Comparador de estadísticas
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CREACIÓN (solo entrenador/admin) -->
+            {% if current_user.role in ["entrenador", "admin"] %}
+
+            <div class="col-md-3">
+                <div class="card shadow-sm h-100 border-success">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <a href="/ligas/crear" class="btn btn-success w-100">
+                            Crear liga
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card shadow-sm h-100 border-success">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <a href="/equipos/crear" class="btn btn-success w-100">
+                            Crear equipo
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card shadow-sm h-100 border-success">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <a href="/jugadores/crear" class="btn btn-success w-100">
+                            Crear jugador
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {% endif %}
+
+            <!-- SOLO ADMIN -->
+            {% if current_user.role == "admin" %}
+
+            <div class="col-md-3">
+                <div class="card shadow-sm h-100 border-danger">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <a href="/users" class="btn btn-danger w-100">
+                            Gestionar usuarios
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
