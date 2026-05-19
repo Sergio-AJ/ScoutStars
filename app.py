@@ -360,6 +360,19 @@ def crear_temporada():
     ligas = Liga.query.all()
     return render_template("crear_temporada.html", ligas=ligas)
 
+@app.route("/temporadas/<int:id>")
+@login_required
+def ver_temporada(id):
+
+    temporada = Temporada.query.get_or_404(id)
+    equipos = Equipo.query.filter_by(temporada_id=id).all()
+
+    return render_template(
+        "temporada_detalle.html",
+        temporada=temporada,
+        equipos=equipos
+    )
+
 #---------------- COMAPRADOR --------------
 @app.route("/comparador", methods=["GET", "POST"])
 @login_required
