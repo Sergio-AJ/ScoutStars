@@ -387,62 +387,60 @@ def comparador():
 
     jugador1 = None
     jugador2 = None
+    chart_url = None
 
     # 🔽 COMPARACIÓN (POST REAL)
     if request.method == "POST":
-        chart_url = None
-        if request.method == "POST":
-    jugador1_id = request.form.get("jugador1")
-    jugador2_id = request.form.get("jugador2")
 
-    if jugador1_id and jugador2_id:
-        jugador1 = Jugador.query.get(int(jugador1_id))
-        jugador2 = Jugador.query.get(int(jugador2_id))
+        jugador1_id = request.form.get("jugador1")
+        jugador2_id = request.form.get("jugador2")
 
-        # 🔥 CALCULAR STATS TOTALES
-        data = {
-            "Jugador": [jugador1.nombre, jugador2.nombre],
-            "Puntos": [
-                sum(e.puntos for e in jugador1.estadisticas),
-                sum(e.puntos for e in jugador2.estadisticas)
-            ],
-            "Rebotes": [
-                sum(e.rebotes for e in jugador1.estadisticas),
-                sum(e.rebotes for e in jugador2.estadisticas)
-            ],
-            "Asistencias": [
-                sum(e.asistencias for e in jugador1.estadisticas),
-                sum(e.asistencias for e in jugador2.estadisticas)
-            ]
-        }
+        if jugador1_id and jugador2_id:
 
-        df = pd.DataFrame(data)
+            jugador1 = Jugador.query.get(int(jugador1_id))
+            jugador2 = Jugador.query.get(int(jugador2_id))
 
-        # 🔥 GRÁFICO
-        ax = df.set_index("Jugador").plot(kind="bar")
+            # 🔥 CALCULAR STATS TOTALES
+            data = {
+                "Jugador": [jugador1.nombre, jugador2.nombre],
+                "Puntos": [
+                    sum(e.puntos for e in jugador1.estadisticas),
+                    sum(e.puntos for e in jugador2.estadisticas)
+                ],
+                "Rebotes": [
+                    sum(e.rebotes for e in jugador1.estadisticas),
+                    sum(e.rebotes for e in jugador2.estadisticas)
+                ],
+                "Asistencias": [
+                    sum(e.asistencias for e in jugador1.estadisticas),
+                    sum(e.asistencias for e in jugador2.estadisticas)
+                ]
+            }
 
-        plt.title("Comparador de jugadores")
-        plt.tight_layout()
+            df = pd.DataFrame(data)
 
-        # guardar imagen en memoria
-        img = BytesIO()
-        plt.savefig(img, format="png")
-        img.seek(0)
+            ax = df.set_index("Jugador").plot(kind="bar")
 
-        chart_url = base64.b64encode(img.getvalue()).decode()
+            plt.title("Comparador de jugadores")
+            plt.tight_layout()
 
-        plt.close()
+            img = BytesIO()
+            plt.savefig(img, format="png")
+            img.seek(0)
+
+            chart_url = base64.b64encode(img.getvalue()).decode()
+
+            plt.close()
 
     return render_template(
-      "comparador.html",
-    ligas=ligas,
-    equipos=equipos,
-    jugadores=jugadores,
-    jugador1=jugador1,
-    jugador2=jugador2,
-    chart_url=chart_url
+        "comparador.html",
+        ligas=ligas,
+        equipos=equipos,
+        jugadores=jugadores,
+        jugador1=jugador1,
+        jugador2=jugador2,
+        chart_url=chart_url
     )
-
 @app.route("/ligas/<int:liga_id>/crear_equipo", methods=["GET", "POST"])
 @login_required
 @roles_required("entrenador", "admin")
