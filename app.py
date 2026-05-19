@@ -11,8 +11,26 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
+import re
 
 print("🔥 APP PY CARGADO CORRECTAMENTE")
+#--------EXPREG-------
+import re
+
+def validar_password(password):
+    if len(password) < 8:
+        return "La contraseña debe tener al menos 8 caracteres"
+
+    if not re.search(r"[A-Z]", password):
+        return "La contraseña debe tener al menos una mayúscula"
+
+    if not re.search(r"[0-9]", password):
+        return "La contraseña debe tener al menos un número"
+
+    if not re.search(r"[\W_]", password):
+        return "La contraseña debe tener al menos un símbolo"
+
+    return None
 
 
 def roles_required(*roles):
@@ -81,19 +99,30 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     error = None
+
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
         role = request.form.get("role", "jugador")
 
+        # validar contraseña primero
+        error = validar_password(password)
+
+        if error:
+            return render_template("register.html", error=error)
+
+        # comprobar usuario existente
         if User.query.filter_by(username=username).first():
             error = "El usuario ya existe"
-        else:
-            new_user = User(username=username, role=role)
-            new_user.set_password(password)
-            db.session.add(new_user)
-            db.session.commit()
-            return redirect("/login")
+            return render_template("register.html", error=error)
+
+        # crear usuario
+        new_user = User(username=username, role=role)
+        new_user.set_password(password)
+        db.session.add(new_user)
+        db.session.commit()
+
+        return redirect("/login")
 
     return render_template("register.html", error=error)
 
