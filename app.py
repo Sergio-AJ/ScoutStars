@@ -419,7 +419,10 @@ def comparador():
 
             df = pd.DataFrame(data)
 
-            ax = df.set_index("Jugador").plot(kind="bar")
+            ax = df.set_index("Jugador").plot(
+                kind="bar",
+                color=["#000094", "#0270c4", "#469cf2"]
+            )
 
             plt.title("Comparador de jugadores")
             plt.tight_layout()
