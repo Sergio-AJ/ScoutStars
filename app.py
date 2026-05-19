@@ -5,6 +5,12 @@ from models import User, Liga, Equipo, Jugador, Temporada, Estadistica
 from functools import wraps
 from flask import abort
 import os
+import pandas as pd
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import base64
+from io import BytesIO
 
 print("🔥 APP PY CARGADO CORRECTAMENTE")
 
@@ -384,20 +390,57 @@ def comparador():
 
     # 🔽 COMPARACIÓN (POST REAL)
     if request.method == "POST":
-        jugador1_id = request.form.get("jugador1")
-        jugador2_id = request.form.get("jugador2")
+        chart_url = None
+        if request.method == "POST":
+    jugador1_id = request.form.get("jugador1")
+    jugador2_id = request.form.get("jugador2")
 
-        if jugador1_id and jugador2_id:
-            jugador1 = Jugador.query.get(int(jugador1_id))
-            jugador2 = Jugador.query.get(int(jugador2_id))
+    if jugador1_id and jugador2_id:
+        jugador1 = Jugador.query.get(int(jugador1_id))
+        jugador2 = Jugador.query.get(int(jugador2_id))
+
+        # 🔥 CALCULAR STATS TOTALES
+        data = {
+            "Jugador": [jugador1.nombre, jugador2.nombre],
+            "Puntos": [
+                sum(e.puntos for e in jugador1.estadisticas),
+                sum(e.puntos for e in jugador2.estadisticas)
+            ],
+            "Rebotes": [
+                sum(e.rebotes for e in jugador1.estadisticas),
+                sum(e.rebotes for e in jugador2.estadisticas)
+            ],
+            "Asistencias": [
+                sum(e.asistencias for e in jugador1.estadisticas),
+                sum(e.asistencias for e in jugador2.estadisticas)
+            ]
+        }
+
+        df = pd.DataFrame(data)
+
+        # 🔥 GRÁFICO
+        ax = df.set_index("Jugador").plot(kind="bar")
+
+        plt.title("Comparador de jugadores")
+        plt.tight_layout()
+
+        # guardar imagen en memoria
+        img = BytesIO()
+        plt.savefig(img, format="png")
+        img.seek(0)
+
+        chart_url = base64.b64encode(img.getvalue()).decode()
+
+        plt.close()
 
     return render_template(
-        "comparador.html",
-        ligas=ligas,
-        equipos=equipos,
-        jugadores=jugadores,
-        jugador1=jugador1,
-        jugador2=jugador2
+      "comparador.html",
+    ligas=ligas,
+    equipos=equipos,
+    jugadores=jugadores,
+    jugador1=jugador1,
+    jugador2=jugador2,
+    chart_url=chart_url
     )
 
 @app.route("/ligas/<int:liga_id>/crear_equipo", methods=["GET", "POST"])
