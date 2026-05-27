@@ -106,7 +106,7 @@ a:hover {
     background-color:#ff7a7a;
 }
 
-bg-light{
+.bg-light{
     background-color:#acd5ff;
 }
 
@@ -114,6 +114,6 @@ bg-light{
     background-color:#003cac  !important;
 }
 
-.btn.btn-success :hover{
-    background-color:#1b5ad1  !important;
+.btn.btn-success:hover{
+    background-color:#78a3f3  !important;
 }
