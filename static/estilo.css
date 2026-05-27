@@ -102,19 +102,23 @@ a:hover {
     text-decoration: underline;
 }
 
-.btn btn-sm btn-danger{
-    background-color:#ff7a7a;
+.btn.btn-sm.btn-danger{
+    background-color:#ad0000;
+}
+
+.btn.btn-sm.btn-danger:hover{
+    background-color:#470000;
 }
 
 .bg-light{
-    background-color:#acd5ff;
+    background-color:#93a7ff;
 }
 
 .btn.btn-success{
-    background-color:#003cac  !important;
+    background-color:#0048ce  !important;
 }
 
 .btn.btn-success:hover{
-    background-color:#78a3f3  !important;
+    background-color:#0b275c  !important;
     color: black;
 }
