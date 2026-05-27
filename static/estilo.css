@@ -101,3 +101,11 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+.btn btn-sm btn-danger{
+    background-color:#ff7a7a;
+}
+
+bg-light{
+    background-color:#acd5ff;
+}
