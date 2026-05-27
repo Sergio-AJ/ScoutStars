@@ -110,6 +110,10 @@ bg-light{
     background-color:#acd5ff;
 }
 
-btn btn-success w-100{
-    background-color:#003cac;
+btn btn-success{
+    background-color:#003cac  !important;
+}
+
+btn btn-success :hover{
+    background-color:#1b5ad1  !important;
 }
