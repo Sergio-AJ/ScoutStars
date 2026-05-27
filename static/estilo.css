@@ -116,4 +116,5 @@ a:hover {
 
 .btn.btn-success:hover{
     background-color:#78a3f3  !important;
+    color: black;
 }
