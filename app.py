@@ -409,7 +409,7 @@ def comparador():
 
     ligas = Liga.query.all()
 
-    # 🔽 FILTROS (GET)
+    # FILTROS (GET)
     liga_id = request.args.get("liga_id")
     equipo_id = request.args.get("equipo_id")
 
@@ -431,7 +431,7 @@ def comparador():
     jugador2 = None
     chart_url = None
 
-    # 🔽 COMPARACIÓN (POST REAL)
+    # COMPARACIÓN (POST)
     if request.method == "POST":
 
         jugador1_id = request.form.get("jugador1")
@@ -442,7 +442,7 @@ def comparador():
             jugador1 = Jugador.query.get(int(jugador1_id))
             jugador2 = Jugador.query.get(int(jugador2_id))
 
-            # 🔥 CALCULAR STATS TOTALES
+            # CALCULAR STATS TOTALES
             data = {
                 "Jugador": [jugador1.nombre, jugador2.nombre],
                 "Puntos": [
@@ -492,14 +492,14 @@ def comparador():
 def crear_equipo_liga(liga_id):
 
     liga = Liga.query.get_or_404(liga_id)
-    temporadas = Temporada.query.filter_by(liga_id=liga_id).all()  # 🔥 CLAVE
+    temporadas = Temporada.query.filter_by(liga_id=liga_id).all() 
 
     if request.method == "POST":
 
         equipo = Equipo(
             nombre=request.form["nombre"],
             liga_id=liga.id,
-            temporada_id=int(request.form["temporada_id"])  # 🔥 ya no será None
+            temporada_id=int(request.form["temporada_id"])  
         )
 
         db.session.add(equipo)
@@ -510,7 +510,7 @@ def crear_equipo_liga(liga_id):
     return render_template(
         "crear_equipo.html",
         liga=liga,
-        temporadas=temporadas   # 🔥 CLAVE
+        temporadas=temporadas   
     )
 
 # ---------------- EQUIPOS --------------

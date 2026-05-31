@@ -20,14 +20,14 @@
         <h2 class="fw-bold">Jugadores</h2>
 
         <div>
-            <!-- 🔐 SOLO ENTRENADOR Y ADMIN -->
+            <!-- SOLO ENTRENADOR Y ADMIN -->
             {% if current_user.role in ["entrenador", "admin"] %}
                 <a href="/jugadores/crear" class="btn btn-success btn-sm">
                     Crear jugador
                 </a>
             {% endif %}
 
-            <!-- 🔐 SOLO ADMIN -->
+            <!-- SOLO ADMIN -->
             {% if current_user.role == "admin" %}
                 <a href="/users" class="btn btn-dark btn-sm">
                     Usuarios

@@ -20,7 +20,7 @@
         <a class="btn btn-outline-secondary btn-sm" href="/home">Volver</a>
     </div>
 
-    <!-- 🔽 FILTROS -->
+    <!-- FILTROS -->
     <form method="GET" class="card p-3 mb-4 shadow-sm">
 
         <div class="row g-3">
@@ -49,7 +49,7 @@
 
     </form>
 
-    <!-- 🔽 COMPARACIÓN -->
+    <!-- COMPARACIÓN -->
     <form method="POST" class="card p-3 mb-4 shadow-sm">
 
         <div class="row g-3">
@@ -82,51 +82,7 @@
 
     </form>
 
-    <!-- {% if jugador1 and jugador2 %}
 
-    <div class="card shadow-sm p-3">
-
-        <h4 class="text-center mb-3">
-            {{ jugador1.nombre }} {{ jugador1.apellido }} vs {{ jugador2.nombre }} {{ jugador2.apellido }}
-        </h4>
-
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered text-center align-middle">
-
-                <thead class="table-dark">
-                    <tr>
-                        <th>Estadística</th>
-                        <th>{{ jugador1.nombre }}</th>
-                        <th>{{ jugador2.nombre }}</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>Puntos</td>
-                        <td>{{ jugador1.estadisticas | sum(attribute='puntos') }}</td>
-                        <td>{{ jugador2.estadisticas | sum(attribute='puntos') }}</td>
-                    </tr>
-
-                    <tr>
-                        <td>Rebotes</td>
-                        <td>{{ jugador1.estadisticas | sum(attribute='rebotes') }}</td>
-                        <td>{{ jugador2.estadisticas | sum(attribute='rebotes') }}</td>
-                    </tr>
-
-                    <tr>
-                        <td>Asistencias</td>
-                        <td>{{ jugador1.estadisticas | sum(attribute='asistencias') }}</td>
-                        <td>{{ jugador2.estadisticas | sum(attribute='asistencias') }}</td>
-                    </tr>
-                </tbody>
-
-            </table>
-        </div>
-
-    </div>
-
-    {% endif %} -->
 {% if chart_url %}
     <h3>Gráfico comparativo</h3>
     <img src="data:image/png;base64,{{ chart_url }}">
