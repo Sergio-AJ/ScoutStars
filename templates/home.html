@@ -23,7 +23,7 @@
 
         {% if current_user.is_authenticated %}
             <span class="fw-bold">Hola, {{ current_user.username }}</span>
-            <a href="/logout" class="btn btn-danger w-100">
+            <a href="/logout" class="btn btn-outline-danger btn-sm">
                 Cerrar sesión
             </a>
         {% else %}
