@@ -203,23 +203,47 @@ def jugadores():
     return render_template("jugadores.html", jugadores=jugadores_list, equipos=equipos)
 
 
+import re
+
 @app.route("/jugadores/crear", methods=["GET", "POST"])
 @login_required
 @roles_required("entrenador", "admin")
 def crear_jugador():
 
     if request.method == "POST":
+
+        nombre = request.form["nombre"]
+        apellido = request.form["apellido"]
+        numero = int(request.form["numero"])
+        posicion = request.form["posicion"]
+        edad = int(request.form["edad"])
+        equipo_id = int(request.form["equipo_id"])
+
+        # Validaciones
+        if not re.match(r'^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$', nombre):
+            return "Nombre no válido"
+
+        if not re.match(r'^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$', apellido):
+            return "Apellido no válido"
+
+        if numero <= 0:
+            return "El número debe ser positivo"
+
+        if edad < 0:
+            return "La edad no puede ser negativa"
+
         nuevo = Jugador(
-            nombre=request.form["nombre"],
-            apellido=request.form["apellido"],
-            numero=int(request.form["numero"]),
-            posicion=request.form["posicion"],
-            edad=int(request.form["edad"]),
-            equipo_id=int(request.form["equipo_id"])
+            nombre=nombre,
+            apellido=apellido,
+            numero=numero,
+            posicion=posicion,
+            edad=edad,
+            equipo_id=equipo_id
         )
 
         db.session.add(nuevo)
         db.session.commit()
+
         return redirect("/jugadores")
 
     equipos = Equipo.query.all()
