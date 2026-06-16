@@ -84,8 +84,15 @@
 
 
 {% if chart_url %}
-    <h3>Gráfico comparativo</h3>
-    <img src="data:image/png;base64,{{ chart_url }}">
+    <div class="text-center mt-4">
+
+    <h3 class="mb-3">Gráfico comparativo</h3>
+
+    <img src="data:image/png;base64,{{ chart_url }}"
+         class="img-fluid mx-auto d-block"
+         style="max-width: 800px;">
+
+    </div>
 {% endif %}
 </div>
 
